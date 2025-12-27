@@ -1,5 +1,6 @@
 const express = require("express");
 const { connectDB } = require("./db");
+const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
@@ -15,6 +16,8 @@ connectDB()
 		console.error("Failed to connect to database", err);
 	});
 
+app.use(cors());
+
 app.get("/", (req, res) => {
 	res.send("Hello World!");
 });
@@ -22,7 +25,7 @@ app.get("/", (req, res) => {
 // example (will be deleted later)
 app.get("/api/test", async (req, res) => {
 	try {
-		const users = await db.collection("users").find().toArray();
+		const users = await db.collection("users").find().toArray(); // testing find() for filter later (very interesting)
 		res.json(users);
 	} catch (error) {
 		res.status(500).json({ error: "Database error" });
