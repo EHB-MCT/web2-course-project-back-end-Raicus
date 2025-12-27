@@ -1,13 +1,32 @@
 const express = require("express");
+const { connectDB } = require("./db");
 require("dotenv").config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+let db;
 
-const uri = process.env.MONGO_URI;
+connectDB()
+	.then((database) => {
+		db = database;
+		console.log("Database ready to use!");
+	})
+	.catch((err) => {
+		console.error("Failed to connect to database", err);
+	});
 
 app.get("/", (req, res) => {
 	res.send("Hello World!");
+});
+
+// example (will be deleted later)
+app.get("/api/test", async (req, res) => {
+	try {
+		const users = await db.collection("users").find().toArray();
+		res.json(users);
+	} catch (error) {
+		res.status(500).json({ error: "Database error" });
+	}
 });
 
 app.listen(port, () => {
