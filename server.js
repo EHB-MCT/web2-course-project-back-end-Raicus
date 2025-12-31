@@ -32,7 +32,6 @@ app.get("/agents", async (req, res) => {
 				agent_card: agent.agent_card,
 			};
 		});
-
 		res.json(agents);
 	} catch (error) {
 		res.status(500).json({ error: "Database error", details: error.message });
