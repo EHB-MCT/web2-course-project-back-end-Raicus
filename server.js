@@ -38,6 +38,21 @@ app.get("/agents", async (req, res) => {
 	}
 });
 
+app.get("/maps", async (req, res) => {
+	try {
+		const data = await db.collection("valorantData").findOne();
+		const maps = data.maps.map((map) => {
+			return {
+				name: map.name,
+				map_image: map.map_image,
+			};
+		});
+		res.json(maps);
+	} catch (error) {
+		res.status(500).json({ error: "Database error", details: error.message });
+	}
+});
+
 // example (will be deleted later)
 app.get("/api/test", async (req, res) => {
 	try {
