@@ -22,6 +22,23 @@ app.get("/", (req, res) => {
 	res.send("Hello World!");
 });
 
+app.get("/agents", async (req, res) => {
+	try {
+		const data = await db.collection("valorantData").findOne();
+		const agents = data.agents.map((agent) => {
+			return {
+				name: agent.name,
+				role: agent.role,
+				agent_card: agent.agent_card,
+			};
+		});
+
+		res.json(agents);
+	} catch (error) {
+		res.status(500).json({ error: "Database error", details: error.message });
+	}
+});
+
 // example (will be deleted later)
 app.get("/api/test", async (req, res) => {
 	try {
