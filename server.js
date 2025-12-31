@@ -18,6 +18,7 @@ connectDB()
 
 app.use(cors());
 
+//GET
 app.get("/", (req, res) => {
 	res.send("Hello World!");
 });
