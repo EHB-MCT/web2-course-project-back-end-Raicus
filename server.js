@@ -22,7 +22,7 @@ app.use(express.json());
 
 //GET
 app.get("/", (req, res) => {
-	res.redirect("index.html");
+	res.send("WELCOME TO MY BEAUTIFUL BACK END DESIGN !!!!!!!!!!");
 });
 
 app.get("/agents", async (req, res) => {
