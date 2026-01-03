@@ -50,7 +50,7 @@ Website url: [VALOHUB](https://web2-course-project-back-end-raicus.onrender.com)
 - **db.js**
 - **server.js**
 
-### [Gemini.Google.com](https://discord.com/channels/@me/1121743099241185370/1456821734622892093) used in:
+### [Gemini.Google.com](https://gemini.google.com/share/a8b2f5d6222c) used in:
 
 - **server.js**
 
