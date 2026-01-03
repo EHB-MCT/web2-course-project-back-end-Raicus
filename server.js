@@ -57,10 +57,10 @@ app.get("/maps", async (req, res) => {
 });
 
 // old example from gemini
-// example (will be deleted later)
+// all api
 app.get("/all", async (req, res) => {
 	try {
-		const users = await db.collection("valorantData").find().toArray(); // testing find() for filter later (very interesting)
+		const users = await db.collection("valorantData").find().toArray();
 		res.json(users);
 	} catch (error) {
 		res.status(500).json({ error: "Database error" });
@@ -101,18 +101,36 @@ app.post("/teams", async (req, res) => {
 		if (result.modifiedCount === 0) {
 			return res
 				.status(404)
-				.json({ error: "Document not found or no changes made" });
+				.json({ error: "Document not found or no changes made 😥" });
 		}
-		res.status(201).json({ message: "Team added successfully!", newTeam });
+		res.status(201).json({ message: "Team added successfully! 🎉", newTeam });
 	} catch (error) {
-		res.status(500).json({ error: "Update failed", details: error.message });
+		res.status(500).json({ error: "Update failed 💀", details: error.message });
 	}
 });
 
-//TEAM MAKER - DELETE
+//TEAM MAKER - DELETE (mix gemini mix myself (with the old version he gave me, I was almost going to delete my whole API 🤣))
+app.delete("/teams/comp:id", async (req, res) => {
+	try {
+		const compositionId = parseInt(req.params.id);
 
-//TEAM MAKER - UPDATE
+		const result = await db
+			.collection("valorantData")
+			.updateOne(
+				{ _id: new ObjectId("69506110938f544b80a93556") },
+				{ $pull: { teams: { composition_id: compositionId } } }
+			);
+
+		if (result.modifiedCount === 0) {
+			return res.status(404).json({ error: "Team not found 😥" });
+		}
+
+		res.json({ message: "Team deleted successfully! 🎉" });
+	} catch (error) {
+		res.status(500).json({ error: "Delete failed 💀", details: error.message });
+	}
+});
 
 app.listen(port, () => {
-	console.log(`Example app listening on port ${port}`);
+	console.log(`Welcome to ValoHub BACK END 🫠 | Port: ${port}`);
 });
