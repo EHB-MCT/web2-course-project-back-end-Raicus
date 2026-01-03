@@ -2,19 +2,50 @@
 
 # ValoHub - Back-end ✨
 
-A short description of your project. Aim for 2-3 lines. \
+ValoHub is a Node.js + Express REST API that powers a Valorant team builder.
+It provides agents, maps, and saved team compositions stored in MongoDB,
+with full CRUD logic for team management.
 
-Website url: [website.be](website.be)
+Website url: [https://web2-course-project-back-end-raicus.onrender.com](ValoHub)
 
 ## All API routes:
 
--
--
--
--
+### GET
+
+- **GET/**  
+  Returns a simple "Hello World" message (API health check).
+
+- **GET/agents**  
+  Returns a list of Valorant agents (name, role, agent card).
+
+- **GET/maps**  
+  Returns all Valorant maps with their images.
+
+- **GET/teams**  
+  Returns all saved team compositions.
+
+- **GET/all**  
+  Returns the full MongoDB collection.
+
+---
+
+### POST
+
+- **POST/teams**  
+  Adds a new team composition to the database.
+
+---
+
+### DELETE
+
+- **DELETE/teams/comp:id**  
+  Deletes a team using its `composition_id`.
+
+---
 
 ## Sources 🗃️
 
 - [ChatGPT.com - MongoDB](https://chatgpt.com/share/69501ead-5648-8011-9770-e641a4bb7cf6) used in:
   -- db.js
   -- server.js
+- []
