@@ -1,6 +1,7 @@
 const express = require("express");
 const { connectDB } = require("./db");
 const cors = require("cors");
+const { ObjectId } = require("mongodb");
 require("dotenv").config();
 
 const app = express();
@@ -17,6 +18,7 @@ connectDB()
 	});
 
 app.use(cors());
+app.use(express.json());
 
 //GET
 app.get("/", (req, res) => {
@@ -56,14 +58,14 @@ app.get("/maps", async (req, res) => {
 
 // old example from gemini
 // example (will be deleted later)
-// app.get("/all", async (req, res) => {
-// 	try {
-// 		const users = await db.collection("valorantData").find().toArray(); // testing find() for filter later (very interesting)
-// 		res.json(users);
-// 	} catch (error) {
-// 		res.status(500).json({ error: "Database error" });
-// 	}
-// });
+app.get("/all", async (req, res) => {
+	try {
+		const users = await db.collection("valorantData").find().toArray(); // testing find() for filter later (very interesting)
+		res.json(users);
+	} catch (error) {
+		res.status(500).json({ error: "Database error" });
+	}
+});
 
 //TEAM MAKER - GET
 app.get("/teams", async (req, res) => {
@@ -82,7 +84,30 @@ app.get("/teams", async (req, res) => {
 	}
 });
 
-//TEAM MAKER - POST
+//TEAM MAKER - POST (from Gemini (I just guided him when there was some errors))
+app.post("/teams", async (req, res) => {
+	try {
+		const newTeam = {
+			composition_id: Date.now(),
+			map_name: req.body.map_name,
+			agent_composition: req.body.agent_composition,
+		};
+		const result = await db
+			.collection("valorantData")
+			.updateOne(
+				{ _id: new ObjectId("69506110938f544b80a93556") },
+				{ $push: { teams: newTeam } }
+			);
+		if (result.modifiedCount === 0) {
+			return res
+				.status(404)
+				.json({ error: "Document not found or no changes made" });
+		}
+		res.status(201).json({ message: "Team added successfully!", newTeam });
+	} catch (error) {
+		res.status(500).json({ error: "Update failed", details: error.message });
+	}
+});
 
 //TEAM MAKER - DELETE
 
