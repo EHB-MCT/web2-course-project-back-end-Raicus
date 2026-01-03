@@ -54,6 +54,18 @@ app.get("/maps", async (req, res) => {
 	}
 });
 
+// old example from gemini
+// example (will be deleted later)
+// app.get("/all", async (req, res) => {
+// 	try {
+// 		const users = await db.collection("valorantData").find().toArray(); // testing find() for filter later (very interesting)
+// 		res.json(users);
+// 	} catch (error) {
+// 		res.status(500).json({ error: "Database error" });
+// 	}
+// });
+
+//TEAM MAKER - GET
 app.get("/teams", async (req, res) => {
 	try {
 		const data = await db.collection("valorantData").findOne();
@@ -70,16 +82,11 @@ app.get("/teams", async (req, res) => {
 	}
 });
 
-// old example from gemini
-// example (will be deleted later)
-// app.get("/all", async (req, res) => {
-// 	try {
-// 		const users = await db.collection("valorantData").find().toArray(); // testing find() for filter later (very interesting)
-// 		res.json(users);
-// 	} catch (error) {
-// 		res.status(500).json({ error: "Database error" });
-// 	}
-// });
+//TEAM MAKER - POST
+
+//TEAM MAKER - DELETE
+
+//TEAM MAKER - UPDATE
 
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}`);
